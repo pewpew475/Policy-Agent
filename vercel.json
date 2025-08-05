@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "name": "insurance-ai-assistant",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "python-backend/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/python-backend/main.py"
+    },
+    {
+      "src": "/hackrx/(.*)",
+      "dest": "/python-backend/main.py"
+    },
+    {
+      "src": "/health",
+      "dest": "/python-backend/main.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "GLM_API_KEY": "@glm_api_key",
+    "GEMINI_API_KEY_1": "@gemini_api_key_1",
+    "GEMINI_API_KEY_2": "@gemini_api_key_2",
+    "GEMINI_API_KEY_3": "@gemini_api_key_3",
+    "GEMINI_API_KEY_4": "@gemini_api_key_4",
+    "GEMINI_API_KEY_5": "@gemini_api_key_5",
+    "DATABASE_URL": "@database_url",
+    "SECRET_KEY": "@secret_key"
+  },
+  "functions": {
+    "python-backend/main.py": {
+      "maxDuration": 300
+    }
+  }
+}

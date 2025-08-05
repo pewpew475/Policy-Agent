@@ -1,0 +1,20 @@
+INSURANCE POLICY DOCUMENT
+
+Policy Number: INS-2024-001
+Policyholder: John Doe
+Coverage Type: Auto Insurance
+Premium: $1,200 annually
+
+Coverage Details:
+- Liability: $100,000
+- Collision: $50,000
+- Comprehensive: $25,000
+
+Effective Date: January 1, 2024
+Expiration Date: December 31, 2024
+
+Important Notes:
+- Deductible: $500
+- Coverage applies to vehicle VIN: 1234567890
+- Emergency roadside assistance included
+- Rental car coverage: $30/day up to 30 days
