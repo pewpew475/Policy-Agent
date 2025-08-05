@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 import Navigation from '@/components/Navigation/navigation'
 import AnalyticsDashboard from '@/components/Analytics/AnalyticsDashboard'
 import { Globe, ArrowRight, Copy, Check } from 'lucide-react'
-import { apiService, UploadedDocument } from '@/lib/api'
+import { apiService } from '@/lib/api'
 
 interface Message {
   text: string;
@@ -30,7 +30,7 @@ const Page = () => {
   const [isBackendConnected, setIsBackendConnected] = useState(false)
   const [showAnalytics, setShowAnalytics] = useState(false)
   const [uploadedDocuments, setUploadedDocuments] = useState<string[]>([])
-  const [isUploading, setIsUploading] = useState(false)
+  const [, setIsUploading] = useState(false)
   const [copiedMessageIndex, setCopiedMessageIndex] = useState<number | null>(null)
 
   // Check backend connectivity on component mount

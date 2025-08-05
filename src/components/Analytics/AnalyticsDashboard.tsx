@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { X, Activity, Users, FileText, Clock, TrendingUp, Key, AlertCircle } from 'lucide-react'
-import { apiService, AnalyticsResponse } from '@/lib/api'
+import { X, Activity, FileText, Clock, TrendingUp, Key, AlertCircle } from 'lucide-react'
+import { apiService, AnalyticsResponse, APIKey, SystemHealth } from '@/lib/api'
 
 interface AnalyticsDashboardProps {
   isOpen: boolean
@@ -13,8 +13,8 @@ export default function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboa
   const [analytics, setAnalytics] = useState<AnalyticsResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [apiKeys, setApiKeys] = useState<any[]>([])
-  const [systemHealth, setSystemHealth] = useState<any>(null)
+  const [apiKeys, setApiKeys] = useState<APIKey[]>([])
+  const [systemHealth, setSystemHealth] = useState<SystemHealth | null>(null)
 
   useEffect(() => {
     if (isOpen) {
