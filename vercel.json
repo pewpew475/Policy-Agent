@@ -20,14 +20,14 @@
     }
   ],
   "env": {
-    "GLM_API_KEY": "@glm_api_key",
-    "GEMINI_API_KEY_1": "@gemini_api_key_1",
-    "GEMINI_API_KEY_2": "@gemini_api_key_2",
-    "GEMINI_API_KEY_3": "@gemini_api_key_3",
-    "GEMINI_API_KEY_4": "@gemini_api_key_4",
-    "GEMINI_API_KEY_5": "@gemini_api_key_5",
-    "DATABASE_URL": "@database_url",
-    "SECRET_KEY": "@secret_key"
+    "GLM_API_KEY": "@GLM_API_KEY",
+    "GEMINI_API_KEY_1": "@GEMINI_API_KEY_1",
+    "GEMINI_API_KEY_2": "@GEMINI_API_KEY_2",
+    "GEMINI_API_KEY_3": "@GEMINI_API_KEY_3",
+    "GEMINI_API_KEY_4": "@GEMINI_API_KEY_4",
+    "GEMINI_API_KEY_5": "@GEMINI_API_KEY_5",
+    "DATABASE_URL": "@DATABASE_URL",
+    "SECRET_KEY": "@SECRET_KEY"
   },
   "functions": {
     "python-backend/main.py": {
