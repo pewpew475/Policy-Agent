@@ -1,34 +1,4 @@
 {
-  "version": 2,
-  "name": "insurance-ai-assistant",
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/python-backend/main.py"
-    },
-    {
-      "src": "/hackrx/(.*)",
-      "dest": "/python-backend/main.py"
-    },
-    {
-      "src": "/health",
-      "dest": "/python-backend/main.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
-  "env": {
-    "GLM_API_KEY": "@GLM_API_KEY",
-    "GEMINI_API_KEY_1": "@GEMINI_API_KEY_1",
-    "GEMINI_API_KEY_2": "@GEMINI_API_KEY_2",
-    "GEMINI_API_KEY_3": "@GEMINI_API_KEY_3",
-    "GEMINI_API_KEY_4": "@GEMINI_API_KEY_4",
-    "GEMINI_API_KEY_5": "@GEMINI_API_KEY_5",
-    "DATABASE_URL": "@DATABASE_URL",
-    "SECRET_KEY": "@SECRET_KEY"
-  },
   "functions": {
     "python-backend/main.py": {
       "maxDuration": 300
