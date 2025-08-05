@@ -1,0 +1,49 @@
+# Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+.next
+out
+dist
+
+# IDE files
+.vscode
+.idea
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python backend (handled separately)
+python-backend/__pycache__
+python-backend/*.pyc
+python-backend/logs
+python-backend/uploads
+python-backend/processed_documents
+python-backend/insurance_ai.db
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Temporary folders
+tmp
+temp

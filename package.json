@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf .next",
+    "build:clean": "npm run clean && npm run build",
     "deploy": "vercel --prod",
     "deploy:preview": "vercel"
   },
