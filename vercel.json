@@ -1,16 +1,6 @@
 {
   "version": 2,
   "name": "insurance-ai-assistant",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    },
-    {
-      "src": "python-backend/main.py",
-      "use": "@vercel/python"
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
