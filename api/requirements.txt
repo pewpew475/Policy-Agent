@@ -1,0 +1,18 @@
+# Vercel Python Serverless Function Requirements
+# Copy of python-backend requirements
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+python-multipart>=0.0.6
+groq>=0.4.0
+pytesseract>=0.3.10
+Pillow>=10.0.0
+PyPDF2>=3.0.0
+python-docx>=1.0.0
+sqlalchemy>=2.0.0
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-dotenv>=1.0.0
+httpx>=0.25.0
+aiofiles>=23.0.0
+pydantic>=2.0.0
+loguru>=0.7.0

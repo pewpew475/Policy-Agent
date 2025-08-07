@@ -38,8 +38,14 @@ const Page = () => {
   useEffect(() => {
     const checkBackend = async () => {
       try {
+        console.log('Checking backend connectivity...')
         const isHealthy = await apiService.checkHealth()
+        console.log('Backend health check result:', isHealthy)
         setIsBackendConnected(isHealthy)
+
+        if (!isHealthy) {
+          console.warn('Backend health check failed - API may be starting up')
+        }
       } catch (error) {
         console.error('Backend connectivity check failed:', error)
         setIsBackendConnected(false)
@@ -134,18 +140,8 @@ const Page = () => {
     setIsAiTyping(true)
 
     try {
-      if (!isBackendConnected) {
-        // Fallback to demo mode if backend is not connected
-        setTimeout(() => {
-          setMessages(prev => [...prev, {
-            text: "⚠️ Backend not connected. This is a demo response. Please ensure the backend server is running on http://localhost:8000",
-            isAi: true,
-            timestamp: new Date()
-          }])
-          setIsAiTyping(false)
-        }, 1000)
-        return
-      }
+      // Always try to make the API call, even if health check failed
+      // This handles serverless cold start scenarios
 
       let documentIds: string[] = []
 
@@ -235,8 +231,22 @@ const Page = () => {
 
     } catch (error) {
       console.error('Error sending message:', error)
+
+      // Provide helpful error message based on the error type
+      let errorMessage = "❌ Unable to process your request. "
+
+      if (error instanceof Error) {
+        if (error.message.includes('fetch')) {
+          errorMessage += "The AI service may be starting up. Please try again in a moment."
+        } else {
+          errorMessage += error.message
+        }
+      } else {
+        errorMessage += "Please check your connection and try again."
+      }
+
       setMessages(prev => [...prev, {
-        text: `❌ Error: ${error instanceof Error ? error.message : 'Failed to send message'}`,
+        text: errorMessage,
         isAi: true,
         timestamp: new Date()
       }])

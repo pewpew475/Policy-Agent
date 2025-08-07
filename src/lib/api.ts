@@ -287,9 +287,40 @@ class APIService {
    */
   async checkHealth(): Promise<boolean> {
     try {
-      const response = await fetch(`${this.baseURL}/health`);
-      return response.ok;
-    } catch {
+      console.log('Checking health at:', `${this.baseURL}/health`);
+
+      // Use a longer timeout for serverless cold starts
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+      const response = await fetch(`${this.baseURL}/health`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+      console.log('Health check response:', response.status, response.statusText);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Health check data:', data);
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      console.error('Health check error:', error);
+
+      // In production, if health check fails, still try to use the API
+      // This handles cold start scenarios
+      if (process.env.NODE_ENV === 'production') {
+        console.log('Production mode: Assuming API is available despite health check failure');
+        return true;
+      }
+
       return false;
     }
   }

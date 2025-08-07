@@ -1,24 +1,35 @@
 {
+  "version": 2,
   "builds": [
     { "src": "package.json", "use": "@vercel/next" },
     { "src": "api/index.py", "use": "@vercel/python" }
   ],
-  "outputDirectory": "public",
   "env": {
-    "DATABASE_URL": "python-backend/insurance_ai.db"
+    "GLM_API_KEY": "@GLM_API_KEY",
+    "GEMINI_API_KEY_1": "@GEMINI_API_KEY_1",
+    "GEMINI_API_KEY_2": "@GEMINI_API_KEY_2",
+    "GEMINI_API_KEY_3": "@GEMINI_API_KEY_3",
+    "GEMINI_API_KEY_4": "@GEMINI_API_KEY_4",
+    "GEMINI_API_KEY_5": "@GEMINI_API_KEY_5",
+    "DATABASE_URL": "@DATABASE_URL",
+    "SECRET_KEY": "@SECRET_KEY"
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api"
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
     },
     {
-      "source": "/hackrx/(.*)",
-      "destination": "/api"
+      "src": "/hackrx/(.*)",
+      "dest": "/api/index.py"
     },
     {
-      "source": "/health",
-      "destination": "/api"
+      "src": "/health",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }
