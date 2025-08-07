@@ -1,5 +1,6 @@
 "use client"
 
+import '@/lib/api'
 import React, { useState, useEffect } from 'react'
 import { X, Activity, FileText, Clock, TrendingUp, Key, AlertCircle } from 'lucide-react'
 import { apiService, AnalyticsResponse, APIKey, SystemHealth } from '@/lib/api'

@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation/navigation'
 import AnalyticsDashboard from '@/components/Analytics/AnalyticsDashboard'
 import { Globe, ArrowRight, Copy, Check } from 'lucide-react'
 import { apiService } from '@/lib/api'
+import '@/lib/utils'
 
 interface Message {
   text: string;
