@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { documentStore } from '../../../../lib/documentStore'
 
 // AI API configurations
 const GLM_API_KEY = process.env.GLM_API_KEY
@@ -120,11 +121,19 @@ export async function POST(request: NextRequest) {
 
     const docIds = documentIds ? documentIds.split(',') : []
 
-    // For now, we'll use a simple document context placeholder
-    // In a real implementation, you'd fetch the actual document content from Vercel Blob
-    const documentContext = docIds.length > 0
-      ? `Document analysis: ${docIds.length} insurance document(s) have been uploaded and are being referenced for this query.`
-      : undefined
+    // Get actual document content from the document store
+    let documentContext: string | undefined
+    if (docIds.length > 0) {
+      console.log('Looking up document content for IDs:', docIds)
+      const content = documentStore.getMultiple(docIds)
+      if (content && content.trim().length > 0) {
+        documentContext = content
+        console.log(`Found document content: ${content.length} characters`)
+      } else {
+        console.log('No document content found for provided IDs')
+        documentContext = `Document reference: ${docIds.length} document(s) were uploaded but content could not be retrieved. Please re-upload the documents.`
+      }
+    }
 
     let aiResponse: string
     const startTime = Date.now()
