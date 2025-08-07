@@ -134,22 +134,36 @@ class APIService {
    * Upload files separately (no AI processing yet)
    */
   async uploadFiles(files: File[]): Promise<UploadResponse> {
-    const formData = new FormData();
+    try {
+      const formData = new FormData();
 
-    files.forEach((file) => {
-      formData.append('files', file);
-    });
+      files.forEach((file) => {
+        formData.append('files', file);
+      });
 
-    const response = await fetch(`${this.baseURL}/api/frontend/upload`, {
-      method: 'POST',
-      body: formData,
-    });
+      console.log('Uploading files to:', `${this.baseURL}/api/frontend/upload`);
 
-    if (!response.ok) {
-      throw new Error(`Upload failed: ${response.statusText}`);
+      const response = await fetch(`${this.baseURL}/api/frontend/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      console.log('Upload response status:', response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Upload error response:', errorText);
+        throw new Error(`Upload failed: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log('Upload result:', result);
+      return result;
+
+    } catch (error) {
+      console.error('Upload error:', error);
+      throw error;
     }
-
-    return response.json();
   }
 
   /**
