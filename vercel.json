@@ -4,16 +4,7 @@
     { "src": "package.json", "use": "@vercel/next" },
     { "src": "api/index.py", "use": "@vercel/python" }
   ],
-  "env": {
-    "GLM_API_KEY": "@GLM_API_KEY",
-    "GEMINI_API_KEY_1": "@GEMINI_API_KEY_1",
-    "GEMINI_API_KEY_2": "@GEMINI_API_KEY_2",
-    "GEMINI_API_KEY_3": "@GEMINI_API_KEY_3",
-    "GEMINI_API_KEY_4": "@GEMINI_API_KEY_4",
-    "GEMINI_API_KEY_5": "@GEMINI_API_KEY_5",
-    "DATABASE_URL": "@DATABASE_URL",
-    "SECRET_KEY": "@SECRET_KEY"
-  },
+
   "routes": [
     {
       "src": "/api/(.*)",
