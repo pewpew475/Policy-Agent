@@ -1,16 +1,20 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+
+
+
 const nextConfig: NextConfig = {
   // Output configuration for better compatibility
   output: 'standalone',
 
   // Webpack configuration for path resolution
   webpack: (config, { isServer, dev }) => {
+    // Add requested @ alias logic
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
     // Add comprehensive path aliases
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': path.resolve(__dirname, 'src'),
       '@/components': path.resolve(__dirname, 'src/components'),
       '@/lib': path.resolve(__dirname, 'src/lib'),
       '@/services': path.resolve(__dirname, 'src/services'),
