@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url)
+    // const { searchParams } = new URL(request.url)
     // const days = searchParams.get('days') || '7' // Future use
 
     // Mock analytics data

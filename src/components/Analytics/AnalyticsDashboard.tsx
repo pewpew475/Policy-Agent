@@ -31,7 +31,7 @@ export default function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboa
       console.log('Fetching analytics data...')
 
       // Fetch each endpoint separately to identify which one is failing
-      let analyticsData, keysData, healthData
+      let analyticsData: AnalyticsResponse | undefined, keysData: APIKey[] | undefined, healthData: SystemHealth | undefined
 
       try {
         console.log('Fetching analytics...')
@@ -39,7 +39,15 @@ export default function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboa
         console.log('Analytics data:', analyticsData)
       } catch (err) {
         console.error('Analytics fetch failed:', err)
-        throw new Error(`Analytics: ${err instanceof Error ? err.message : 'Unknown error'}`)
+        // Use fallback data if analytics fails
+        analyticsData = {
+          usage_stats: { total_requests: 0, successful_requests: 0, failed_requests: 0, average_response_time: 0, documents_processed: 0, api_calls_today: 0 },
+          top_endpoints: [],
+          error_rates: { "2xx": 0, "4xx": 0, "5xx": 0 },
+          response_times: [],
+          document_types: {}
+        }
+        console.warn('Using fallback analytics data')
       }
 
       try {
@@ -48,7 +56,9 @@ export default function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboa
         console.log('API keys data:', keysData)
       } catch (err) {
         console.error('API keys fetch failed:', err)
-        throw new Error(`API keys: ${err instanceof Error ? err.message : 'Unknown error'}`)
+        // Don't fail the entire dashboard if API keys fail
+        keysData = []
+        console.warn('Using empty API keys array as fallback')
       }
 
       try {
@@ -57,7 +67,17 @@ export default function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboa
         console.log('System health data:', healthData)
       } catch (err) {
         console.error('System health fetch failed:', err)
-        throw new Error(`System health: ${err instanceof Error ? err.message : 'Unknown error'}`)
+        // Use fallback health data
+        healthData = {
+          status: 'unknown',
+          version: '1.0.0',
+          services: { api: 'unknown', upload: 'unknown', chat: 'unknown', analytics: 'unknown' },
+          uptime: 0,
+          avg_response_time_1h: 0,
+          requests_1h: 0,
+          error_rate_1h: 0
+        }
+        console.warn('Using fallback system health data')
       }
 
       setAnalytics(analyticsData)
