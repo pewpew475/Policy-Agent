@@ -1,38 +1,13 @@
 {
   "functions": {
-    "api/health.py": {
-      "maxDuration": 30
-    },
-    "api/upload.py": {
+    "src/app/api/*/route.ts": {
       "maxDuration": 60
-    },
-    "api/chat.py": {
-      "maxDuration": 60
-    },
-    "api/index.py": {
-      "maxDuration": 300
     }
   },
   "rewrites": [
     {
       "source": "/health",
-      "destination": "/api/health.py"
-    },
-    {
-      "source": "/api/frontend/upload",
-      "destination": "/api/upload.py"
-    },
-    {
-      "source": "/api/frontend/message",
-      "destination": "/api/chat.py"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/hackrx/(.*)",
-      "destination": "/api/index.py"
+      "destination": "/api/health"
     }
   ]
 }
