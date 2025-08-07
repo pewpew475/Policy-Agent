@@ -28,16 +28,44 @@ export default function AnalyticsDashboard({ isOpen, onClose }: AnalyticsDashboa
     setError(null)
     
     try {
-      const [analyticsData, keysData, healthData] = await Promise.all([
-        apiService.getAnalytics(7),
-        apiService.getAPIKeys(),
-        apiService.getSystemHealth()
-      ])
-      
+      console.log('Fetching analytics data...')
+
+      // Fetch each endpoint separately to identify which one is failing
+      let analyticsData, keysData, healthData
+
+      try {
+        console.log('Fetching analytics...')
+        analyticsData = await apiService.getAnalytics(7)
+        console.log('Analytics data:', analyticsData)
+      } catch (err) {
+        console.error('Analytics fetch failed:', err)
+        throw new Error(`Analytics: ${err instanceof Error ? err.message : 'Unknown error'}`)
+      }
+
+      try {
+        console.log('Fetching API keys...')
+        keysData = await apiService.getAPIKeys()
+        console.log('API keys data:', keysData)
+      } catch (err) {
+        console.error('API keys fetch failed:', err)
+        throw new Error(`API keys: ${err instanceof Error ? err.message : 'Unknown error'}`)
+      }
+
+      try {
+        console.log('Fetching system health...')
+        healthData = await apiService.getSystemHealth()
+        console.log('System health data:', healthData)
+      } catch (err) {
+        console.error('System health fetch failed:', err)
+        throw new Error(`System health: ${err instanceof Error ? err.message : 'Unknown error'}`)
+      }
+
       setAnalytics(analyticsData)
       setApiKeys(keysData)
       setSystemHealth(healthData)
+
     } catch (err) {
+      console.error('Failed to fetch analytics data:', err)
       setError(err instanceof Error ? err.message : 'Failed to fetch analytics')
     } finally {
       setLoading(false)

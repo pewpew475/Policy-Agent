@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const _days = searchParams.get('days') || '7'
+    // const days = searchParams.get('days') || '7' // Future use
 
     // Mock analytics data
     const mockData = {

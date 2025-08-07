@@ -208,24 +208,14 @@ const Page = () => {
         return
       }
 
-      const stream = await apiService.sendChatMessage(message, contextDocuments)
+      const response = await apiService.sendChatMessage(message, contextDocuments)
 
-      // Start with empty AI message
-      let aiResponse = ""
-      setMessages(prev => [...prev, { text: "", isAi: true, timestamp: new Date() }])
-
-      // Stream the response
-      for await (const chunk of apiService.parseStreamingResponse(stream)) {
-        aiResponse += chunk
-        setMessages(prev => {
-          const newMessages = [...prev]
-          const lastMessage = newMessages[newMessages.length - 1]
-          if (lastMessage && lastMessage.isAi) {
-            lastMessage.text = aiResponse
-          }
-          return newMessages
-        })
-      }
+      // Add the AI response directly
+      setMessages(prev => [...prev, {
+        text: response.message || "Sorry, I couldn't process your request.",
+        isAi: true,
+        timestamp: new Date()
+      }])
 
       setIsAiTyping(false)
 

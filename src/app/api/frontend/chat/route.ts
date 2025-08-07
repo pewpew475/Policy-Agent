@@ -24,25 +24,14 @@ export async function POST(request: NextRequest) {
     
     aiResponse += "This is a demo response from the Insurance AI Assistant. The full AI integration with GLM and Gemini APIs will be available once the backend is properly configured with your API keys."
 
-    // Create a readable stream for the response (to match the expected format)
-    const encoder = new TextEncoder()
-    const stream = new ReadableStream({
-      start(controller) {
-        const responseData = JSON.stringify({
-          message: aiResponse,
-          conversation_id: `conv-${Date.now()}`,
-          response_time: 0.5,
-          sources: docIds
-        })
-        
-        controller.enqueue(encoder.encode(responseData))
-        controller.close()
-      }
-    })
-
-    return new Response(stream, {
+    // Return a simple JSON response
+    return NextResponse.json({
+      message: aiResponse,
+      conversation_id: `conv-${Date.now()}`,
+      response_time: 0.5,
+      sources: docIds
+    }, {
       headers: {
-        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       }
     })

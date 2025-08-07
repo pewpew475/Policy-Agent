@@ -169,7 +169,7 @@ class APIService {
   /**
    * Send a chat message with optional document context
    */
-  async sendChatMessage(message: string, documentIds?: string[]): Promise<ReadableStream<Uint8Array>> {
+  async sendChatMessage(message: string, documentIds?: string[]): Promise<{message: string, conversation_id: string, response_time: number, sources: string[]}> {
     const formData = new FormData();
     formData.append('message', message);
 
@@ -177,20 +177,24 @@ class APIService {
       formData.append('document_ids', documentIds.join(','));
     }
 
+    console.log('Sending chat message:', message, 'with docs:', documentIds);
+
     const response = await fetch(`${this.baseURL}/api/frontend/chat`, {
       method: 'POST',
       body: formData,
     });
 
+    console.log('Chat response status:', response.status);
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Chat error response:', errorText);
       throw new Error(`Chat failed: ${response.statusText}`);
     }
 
-    if (!response.body) {
-      throw new Error('No response body');
-    }
-
-    return response.body;
+    const result = await response.json();
+    console.log('Chat result:', result);
+    return result;
   }
 
   /**
