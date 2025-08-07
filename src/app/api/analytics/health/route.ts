@@ -17,7 +17,11 @@ export async function GET() {
       error_rate_1h: 2.4
     }
 
-    return NextResponse.json(mockHealthData)
+    return NextResponse.json(mockHealthData, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
 
   } catch (error) {
     console.error('System health error:', error)

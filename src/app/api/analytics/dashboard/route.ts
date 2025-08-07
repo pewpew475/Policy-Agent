@@ -38,7 +38,11 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    return NextResponse.json(mockData)
+    return NextResponse.json(mockData, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      }
+    })
 
   } catch (error) {
     console.error('Analytics error:', error)
