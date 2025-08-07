@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/index.py": {
-      "maxDuration": 300
-    }
-  },
   "builds": [
     { "src": "next.config.ts", "use": "@vercel/next" },
     { "src": "api/index.py", "use": "@vercel/python" }
