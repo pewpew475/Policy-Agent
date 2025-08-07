@@ -4,6 +4,14 @@
       "maxDuration": 300
     }
   },
+  "builds": [
+    { "src": "next.config.ts", "use": "@vercel/next" },
+    { "src": "api/index.py", "use": "@vercel/python" }
+  ],
+  "outputDirectory": "public",
+  "env": {
+    "DATABASE_URL": "python-backend/insurance_ai.db"
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
